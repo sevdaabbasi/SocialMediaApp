@@ -57,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				6D7B0B322DC81DEF008DB536 /* SocialMediaApp */,
+				6DEF79632DCA18900057192D /* Frameworks */,
 				6D7B0B312DC81DEF008DB536 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,6 +68,13 @@
 				6D7B0B302DC81DEF008DB536 /* SocialMediaApp.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6DEF79632DCA18900057192D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
