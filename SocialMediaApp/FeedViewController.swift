@@ -13,7 +13,7 @@ import FirebaseStorage
 import SDWebImage
 
 class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
     
@@ -82,8 +82,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let postedBy = document.get("postedBy") as? String {
             userEmailArray.append(postedBy)
         }
-
-    
+        
+        
         
         if let postComment = document.get("postComment") as? String {
             userCommentArray.append(postComment)
@@ -96,7 +96,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let imageUrl = document.get("imageUrl") as? String {
             imageBase64Array.append(imageUrl) // istersen burada imageUrlArray'e ekle
         }
-
+        
     }
     
     // MARK: - Helper Methods
@@ -120,22 +120,25 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
-    // sevda2@gmail.com
+  
     
     private func configureCell(_ cell: FeedCell, at indexPath: IndexPath) {
         cell.userEmailLabel.text = userEmailArray[indexPath.row]
         cell.likeLabel.text = String(likeArray[indexPath.row])
         cell.commentLabel.text = userCommentArray[indexPath.row]
         cell.documentIdLabel.text = documentIdArray[indexPath.row]
-
+        
         // Firestore'dan imageUrl arrayini almayı unutma!
-        let imageUrl = imageBase64Array[indexPath.row] // artık bu imageUrl olacak
-
-        if let url = URL(string: imageUrl) {
-            cell.userImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "select.png"))
-        } else {
-            cell.userImageView.image = UIImage(named: "select.png")
+         let imageUrl = imageBase64Array[indexPath.row] // artık bu imageUrl olacak
+         
+         if let url = URL(string: imageUrl) {
+         cell.userImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "select.png"))
+         } else {
+         cell.userImageView.image = UIImage(named: "select.png")
+         }
         }
+         
     }
 
-}
+
+
