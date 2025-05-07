@@ -50,9 +50,31 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
             showAlert(title: "Error", message: "Please select an image and add a comment")
             return
         }
-        
-        uploadImage(imageData: imageData, comment: comment)
+
+        guard let currentUser = Auth.auth().currentUser else {
+            showAlert(title: "Error", message: "User not found")
+            return
+        }
+
+        let base64String = imageData.base64EncodedString()
+        let postData: [String: Any] = [
+            "imageBase64": base64String,
+            "postedBy": currentUser.email ?? "",
+            "postComment": comment,
+            "date": FieldValue.serverTimestamp(),
+            "likes": 0
+        ]
+
+        firestore.collection("Posts").addDocument(data: postData) { [weak self] error in
+            if let error = error {
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+                return
+            }
+
+            self?.resetUI()
+        }
     }
+
     
     // MARK: - UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

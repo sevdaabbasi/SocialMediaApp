@@ -52,6 +52,7 @@
                     <tabBarItem key="tabBarItem" title="Upload" image="u.circle.fill" catalog="system" id="g5C-1T-KWq"/>
                     <connections>
                         <outlet property="commentText" destination="wzk-Lu-b4O" id="2Zb-cg-YrJ"/>
+                        <outlet property="imageView" destination="iNI-bq-DbK" id="g7K-Zi-Brf"/>
                         <outlet property="uploadButton" destination="zOs-5g-RXl" id="yrN-t0-mgu"/>
                     </connections>
                 </viewController>
@@ -185,6 +186,7 @@
                                             <outlet property="documentIdLabel" destination="tgR-JK-kpf" id="Vo8-ES-U7j"/>
                                             <outlet property="likeLabel" destination="jdB-yy-63B" id="lzv-hu-DYu"/>
                                             <outlet property="userEmailLabel" destination="FKY-LJ-DK2" id="4cy-kH-Wrv"/>
+                                            <outlet property="userImageView" destination="dMY-53-BdL" id="f1E-3L-rR7"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

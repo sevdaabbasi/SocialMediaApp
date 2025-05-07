@@ -21,7 +21,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var userEmailArray = [String]()
     private var userCommentArray = [String]()
     private var likeArray = [Int]()
-    private var userImageArray = [String]()
+    private var imageBase64Array = [String]()
     private var documentIdArray = [String]()
     
     // MARK: - Lifecycle Methods
@@ -68,10 +68,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     private func clearArrays() {
-        userImageArray.removeAll(keepingCapacity: false)
         userEmailArray.removeAll(keepingCapacity: false)
         userCommentArray.removeAll(keepingCapacity: false)
         likeArray.removeAll(keepingCapacity: false)
+        imageBase64Array.removeAll(keepingCapacity: false)
         documentIdArray.removeAll(keepingCapacity: false)
     }
     
@@ -82,6 +82,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let postedBy = document.get("postedBy") as? String {
             userEmailArray.append(postedBy)
         }
+
+    
         
         if let postComment = document.get("postComment") as? String {
             userCommentArray.append(postComment)
@@ -92,8 +94,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         if let imageUrl = document.get("imageUrl") as? String {
-            userImageArray.append(imageUrl)
+            imageBase64Array.append(imageUrl) // istersen burada imageUrlArray'e ekle
         }
+
     }
     
     // MARK: - Helper Methods
@@ -117,14 +120,22 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
+    // sevda2@gmail.com
+    
     private func configureCell(_ cell: FeedCell, at indexPath: IndexPath) {
         cell.userEmailLabel.text = userEmailArray[indexPath.row]
         cell.likeLabel.text = String(likeArray[indexPath.row])
         cell.commentLabel.text = userCommentArray[indexPath.row]
         cell.documentIdLabel.text = documentIdArray[indexPath.row]
-        
-        if let imageUrl = URL(string: userImageArray[indexPath.row]) {
-            cell.userImageView.sd_setImage(with: imageUrl)
+
+        // Firestore'dan imageUrl arrayini almayı unutma!
+        let imageUrl = imageBase64Array[indexPath.row] // artık bu imageUrl olacak
+
+        if let url = URL(string: imageUrl) {
+            cell.userImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "select.png"))
+        } else {
+            cell.userImageView.image = UIImage(named: "select.png")
         }
     }
+
 }
